@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: server_app
+    restart: unless-stopped
+    image: server-app-dev:0.0.1
+    build:
+      context: server
+      dockerfile: Dockerfile
+    env_file: 
+      - ./server/.env
+    ports:
+      - 3001:3001
+    networks:
+      - shared-network
+    volumes:
+      - ./server_data_volume:/usr/src/server/public/assets
+
+  client:
+    container_name: client_app
+    restart: unless-stopped
+    image: client-app-dev:0.0.1
+    build:
+      context: client
+      dockerfile: Dockerfile
+    env_file: 
+      - ./client/.env
+    ports:
+      - 3002:3002
+    networks:
+      - shared-network
+    depends_on:
+      - server
+
+networks:
+  shared-network:
+    name: mearn-first-network
