@@ -1,2 +1,2 @@
-# Simple Social Media Fullstack MEARN App
+# Simple Social Media Fullstack MERN App
 
